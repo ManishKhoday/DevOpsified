@@ -30,7 +30,21 @@ jobs:
 
     - name: Test
       run: go test ./...
-  
+
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install code quality tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y golangci-lint
+
+      - name: Run code quality checks
+        run: golangci-lint run ./...
   
   push:
     runs-on: ubuntu-latest
